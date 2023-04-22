@@ -1,6 +1,3 @@
-
-from functools import partial
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from solo.models import SingletonModel
@@ -44,53 +41,6 @@ class AbstractSection(models.Model):
 
     class Meta:
         abstract = True
-
-
-# PageSection
-
-
-class PageSection(models.Model):
-    PAGE_OPTIONS = ((HOME_PAGE, _("home")),)
-    page_type = models.CharField(
-        _("Page"), max_length=50, choices=PAGE_OPTIONS, default=HOME_PAGE
-    )
-    section_number = models.IntegerField(default=1)
-    is_slider = models.BooleanField(
-        _("Is slider"),
-        help_text="if enabled, you should add slider pictures.",
-        default=False,
-    )
-
-    class Meta:
-        ordering = ["-section_number"]
-        unique_together = (("page_type", "section_number"),)
-
-
-class SliderPicture(AbstractSection):
-    picture = models.ImageField(upload_to=partial(file_upload, "slider_pictures"))
-    order_in_front = models.IntegerField(default=0)
-    page_section = models.ForeignKey(
-        "PageSection", verbose_name=_("Page Section"), on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return f"{self.title}"
-
-    class Meta:
-        ordering = ["-order_in_front"]
-
-
-class SectionContent(AbstractSection):
-    page_section = models.ForeignKey(
-        "PageSection", on_delete=models.CASCADE, blank=True, null=True
-    )
-    picture = models.ImageField(
-        upload_to=partial(file_upload, "section_content"), blank=True, null=True
-    )
-    url = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.title}"
 
 
 # Contact Us

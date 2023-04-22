@@ -12,7 +12,16 @@ class Product(models.Model):
         Category, on_delete=models.CASCADE, related_name="category_products"
     )
     # fields
-    size = models.CharField(max_length=50)
+    width = models.IntegerField(default=1)
+    height = models.IntegerField(default=1)
+    cover_photo = models.ImageField(
+        upload_to="media/",
+        height_field=None,
+        width_field=None,
+        max_length=None,
+        null=True,
+        blank=True,
+    )
     name = models.CharField(max_length=50)
     min_photos_amount = models.IntegerField(default=1)
     max_photos_amount = models.IntegerField(default=1)

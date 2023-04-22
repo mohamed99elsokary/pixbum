@@ -50,6 +50,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "allauth",
+    "silk",
     "allauth.account",
     "dj_rest_auth.registration",
     # rest framework
@@ -88,6 +89,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "silk.middleware.SilkyMiddleware",
 ]
 
 ROOT_URLCONF = "pixbum.urls"

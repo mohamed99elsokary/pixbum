@@ -67,6 +67,9 @@ THIRD_PARTY_APPS = [
 ]
 # local apps
 LOCAL_APPS = [
+    "pixbum.orderapp",
+    "pixbum.productapp",
+    "pixbum.servicesapp",
     "pixbum.userapp",
     "pixbum.addonsapp",
     "pixbum.services",

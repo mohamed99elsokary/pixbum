@@ -1,17 +1,18 @@
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
-from rest_framework import mixins, status ,viewsets
+from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-
-
 from pixbum.userapp import models
 from pixbum.userapp.serializers import (
+    AddressSerializer,
     LoginSerializer,
     UserDataSerializer,
     UserSerializer,
 )
+
+
 class UserViewSet(viewsets.GenericViewSet):
     queryset = models.User.objects.all()
     serializer_class = UserSerializer
@@ -56,8 +57,26 @@ class UserViewSet(viewsets.GenericViewSet):
         request.user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class AddressViewSet(
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+):
+    queryset = models.Address.objects.all()
+    serializer_class = AddressSerializer
+
+    def get_queryset(self):
+        if self.action == "list":
+            return self.queryset.filter(user=self.request.user)
+        return super().get_queryset()
+
+
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 
-# TODO forget password cycle 
+
+# TODO forget password cycle
 # TODO verify user cycle

@@ -5,9 +5,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from smart_selects.db_fields import ChainedForeignKey
 
-
-
-
 from pixbum.services.custom_Models import CustomModel
 from pixbum.services.helpers import rand_int_4digits
 from pixbum.userapp.conf import OFFER, VISIT
@@ -20,7 +17,7 @@ class CustomUserManager(UserManager):
         return super().create_superuser(username, email, password, **extra_fields)
 
 
-class User(UserMixin,CustomModel, AbstractUser):
+class User(UserMixin, CustomModel, AbstractUser):
     email = models.EmailField(
         verbose_name="email address",
         unique=True,
@@ -59,25 +56,7 @@ class User(UserMixin,CustomModel, AbstractUser):
 
 class Address(models.Model):
     user = models.ForeignKey("User", verbose_name=_("User"), on_delete=models.CASCADE)
-    country = models.ForeignKey(
-        "cities_light.Country",
-        verbose_name=_("Country"),
-        on_delete=models.SET_NULL,
-        null=True,
-    )
-    region = ChainedForeignKey(
-        "cities_light.Region",
-        verbose_name=_("Region"),
-        on_delete=models.SET_NULL,
-        null=True,
-        chained_field="country",
-        chained_model_field="country",
-        show_all=False,
-        auto_choose=True,
-    )
     description = models.TextField(_("Description"))
-    postal_code = models.CharField(_("Postal code"), max_length=100)
-    is_default = models.BooleanField(_("Is default"), default=False)
 
     def __str__(self) -> str:
         return f"{self.country}, {self.region}, {self.description}"

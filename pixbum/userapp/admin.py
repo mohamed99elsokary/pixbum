@@ -45,14 +45,10 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(models.Address)
 class AddressAdmin(ModelAdmin):
-    list_display = ["id", "user", "country", "region", "postal_code", "description"]
-    list_select_related = ("country", "region", "user")
-    autocomplete_fields = ["user", "country"]
+    list_display = ["id", "user", "description"]
     search_fields = (
         "user__email",
         "user__username",
-        "country__name",
-        "region__name",
         "description",
     )
 

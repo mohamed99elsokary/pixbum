@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from pixbum.userapp.models import User
+
+from pixbum.userapp.models import Address, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,3 +59,9 @@ class UserDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username", "phone")
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = "__all__"

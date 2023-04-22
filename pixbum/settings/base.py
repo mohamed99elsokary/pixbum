@@ -64,7 +64,6 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.facebook",
     "dj_rest_auth",
     "drf_yasg",
-    "cities_light",
 ]
 # local apps
 LOCAL_APPS = [

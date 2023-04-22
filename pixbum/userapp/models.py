@@ -58,9 +58,6 @@ class Address(models.Model):
     user = models.ForeignKey("User", verbose_name=_("User"), on_delete=models.CASCADE)
     description = models.TextField(_("Description"))
 
-    def __str__(self) -> str:
-        return f"{self.country}, {self.region}, {self.description}"
-
     class Meta:
         verbose_name_plural = "Addresses"
 

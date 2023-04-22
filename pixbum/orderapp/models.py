@@ -11,17 +11,18 @@ class Order(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     # fields
 
-    def __str__(self):
-        return self.name
-
 
 class OrderDetails(models.Model):
     # relations
-    oder = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="order_details",
+    )
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     # fields
     pdf = models.FileField(upload_to=None, max_length=100)
-
-    def __str__(self):
-        return self.name
+    quantity = models.IntegerField(default=1)

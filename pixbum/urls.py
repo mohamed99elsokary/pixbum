@@ -18,6 +18,9 @@ admin.site.index_title = "pixbum site administration"
 
 main_patterns = i18n_patterns(
     path("admin/", admin.site.urls),
+    path("api/", include("pixbum.orderapp.urls")),
+    path("api/", include("pixbum.productapp.urls")),
+    path("api/", include("pixbum.servicesapp.urls")),
     path("api/", include("pixbum.userapp.urls")),
     path("api/", include("pixbum.addonsapp.urls")),
 )

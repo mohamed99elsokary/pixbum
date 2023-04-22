@@ -10,6 +10,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     # fields
+    is_checkout = models.BooleanField(default=False)
 
 
 class OrderDetails(models.Model):

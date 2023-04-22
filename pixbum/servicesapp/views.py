@@ -1,6 +1,4 @@
-from rest_framework import mixins, status, viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
+from rest_framework import mixins, viewsets
 
 from . import filters, models, serializers
 
@@ -14,3 +12,8 @@ class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
     filterset_class = filters.CategoryFilter
+
+    def get_queryset(self):
+        if self.action == "list":
+            return models.Category.objects.all().prefetch_related("category_products")
+        return super().get_queryset()

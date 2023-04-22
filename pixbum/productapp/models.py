@@ -22,6 +22,14 @@ class Product(models.Model):
         null=True,
         blank=True,
     )
+    main_photo = models.ImageField(
+        upload_to="media/",
+        height_field=None,
+        width_field=None,
+        max_length=None,
+        null=True,
+        blank=True,
+    )
     name = models.CharField(max_length=50)
     min_photos_amount = models.IntegerField(default=1)
     max_photos_amount = models.IntegerField(default=1)

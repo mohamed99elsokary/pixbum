@@ -66,7 +66,11 @@ THIRD_PARTY_APPS = [
     "cities_light",
 ]
 # local apps
-LOCAL_APPS = ["pixbum.userapp", "pixbum.addonsapp", "pixbum.services"]
+LOCAL_APPS = [
+    "pixbum.userapp",
+    "pixbum.addonsapp",
+    "pixbum.services",
+]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 SITE_ID = 1
 

@@ -8,7 +8,7 @@ from pixbum.addonsapp.models import ContactUs, SiteConfiguration
 
 
 @admin.register(SiteConfiguration)
-class SiteConfigurationAdmin(SingletonModelAdmin):
+class SiteConfigurationAdmin(ModelAdmin):
     pass
 
 

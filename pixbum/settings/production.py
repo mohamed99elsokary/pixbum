@@ -57,23 +57,23 @@ DATABASES["default"]["CONN_MAX_AGE"] = config(  # noqa
 # )
 
 # AWS related stuff
-# AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
-#     "Expires": "Thu, 31 Dec 2099 20:00:00 GMT",
-#     "Cache-Control": "max-age=94608000",
-# }
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+    "Expires": "Thu, 31 Dec 2099 20:00:00 GMT",
+    "Cache-Control": "max-age=94608000",
+}
 
-# DEFAULT_FILE_STORAGE = "pixbum.s3utils.MediaS3BotoStorage"
-# STATICFILES_STORAGE = "pixbum.s3utils.StaticS3BotoStorage"
+DEFAULT_FILE_STORAGE = "pixbum.s3utils.MediaS3BotoStorage"
+STATICFILES_STORAGE = "pixbum.s3utils.StaticS3BotoStorage"
 
-# AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", cast=str)
-# AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", cast=str)
-# AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default=False, cast=str)
-# AWS_S3_HOST = "s3.%s.amazonaws.com" % config(
-#     "AWS_STORAGE_BUCKET_REGION", default=False, cast=str
-# )
-# S3_URL = "http://%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
-# STATIC_DIRECTORY = "/pixbum/static/"
-# MEDIA_DIRECTORY = "/pixbum/media/"
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", cast=str)
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", cast=str)
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default=False, cast=str)
+AWS_S3_HOST = "s3.%s.amazonaws.com" % config(
+    "AWS_STORAGE_BUCKET_REGION", default=False, cast=str
+)
+S3_URL = "http://%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+STATIC_DIRECTORY = "/pixbum/static/"
+MEDIA_DIRECTORY = "/pixbum/media/"
 
 # Email
 # EMAIL_BACKEND = config("EMAIL_BACKEND")

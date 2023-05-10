@@ -205,27 +205,6 @@ class Migration(migrations.Migration):
                     models.BooleanField(default=False, verbose_name="Is default"),
                 ),
                 (
-                    "country",
-                    models.ForeignKey(
-                        null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
-                        to="cities_light.country",
-                        verbose_name="Country",
-                    ),
-                ),
-                (
-                    "region",
-                    smart_selects.db_fields.ChainedForeignKey(
-                        auto_choose=True,
-                        chained_field="country",
-                        chained_model_field="country",
-                        null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
-                        to="cities_light.region",
-                        verbose_name="Region",
-                    ),
-                ),
-                (
                     "user",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,

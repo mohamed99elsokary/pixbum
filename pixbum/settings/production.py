@@ -76,13 +76,13 @@ DATABASES["default"]["CONN_MAX_AGE"] = config(  # noqa
 # MEDIA_DIRECTORY = "/pixbum/media/"
 
 # Email
-EMAIL_BACKEND = config("EMAIL_BACKEND")
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_USE_TLS = config("EMAIL_USE_TLS")
-EMAIL_PORT = config("EMAIL_PORT")
-SERVER_EMAIL = config("SERVER_EMAIL")
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+# EMAIL_BACKEND = config("EMAIL_BACKEND")
+# EMAIL_HOST = config("EMAIL_HOST")
+# EMAIL_USE_TLS = config("EMAIL_USE_TLS")
+# EMAIL_PORT = config("EMAIL_PORT")
+# SERVER_EMAIL = config("SERVER_EMAIL")
+# EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
 # Your stuff...
 # ------------------------------------------------------------------------------

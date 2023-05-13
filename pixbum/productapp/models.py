@@ -35,6 +35,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     min_photos_amount = models.IntegerField(default=1)
     max_photos_amount = models.IntegerField(default=1)
+    description = models.TextField(default=None, null=True, blank=True)
 
     def __str__(self):
         return self.name

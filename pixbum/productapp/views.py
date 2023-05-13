@@ -7,10 +7,12 @@ from . import filters, models, serializers
 
 class ProductViewSet(
     mixins.RetrieveModelMixin,
+    mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
     queryset = models.Product.objects.all()
     serializer_class = serializers.DetailedProductSerializer
+    filterset_fields = ["category"]
 
     def get_queryset(self):
         if self.action == "list":

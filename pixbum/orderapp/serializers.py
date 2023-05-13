@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from pixbum.productapp.serializers import ProductSerializer
+from pixbum.servicesapp.serializers import ServiceSerializer
 from pixbum.userapp.serializers import AddressSerializer
 
 from . import models
@@ -57,3 +59,42 @@ class OrderSerializer(serializers.ModelSerializer):
             price = product.product.price * product.quantity
             total += price
         return total
+
+
+class DraftSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = models.Drafts
+        fields = "__all__"
+
+
+class DraftGetSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    service = ServiceSerializer()
+    product = ProductSerializer()
+
+    class Meta:
+        model = models.Drafts
+        fields = "__all__"
+
+
+class AddToCartSerializer(serializers.Serializer):
+    draft = serializers.IntegerField(write_only=True)
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        user_cart = models.Cart.objects.filter(user=user).first()
+        draft = models.Drafts.objects.filter(id=validated_data["draft"]).first()
+        draft.cart = user_cart
+        draft.quantity = 1
+        draft.save()
+        return draft
+
+
+class CartSerializer(serializers.ModelSerializer):
+    drafts = DraftGetSerializer(many=True, source="cart_drafts")
+
+    class Meta:
+        model = models.Cart
+        fields = "__all__"

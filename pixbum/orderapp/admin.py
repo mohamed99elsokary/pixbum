@@ -20,3 +20,8 @@ class OrderAdmin(ModelAdmin):
 @admin.register(models.OrderDetails)
 class OrderDetailsAdmin(ModelAdmin):
     """Admin View for OrderDetails"""
+
+
+@admin.register(models.Drafts)
+class DraftAdmin(ModelAdmin):
+    """Admin View for Draft"""

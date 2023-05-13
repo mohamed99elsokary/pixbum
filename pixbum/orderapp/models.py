@@ -27,3 +27,30 @@ class OrderDetails(models.Model):
     # fields
     pdf = models.FileField(upload_to=None, max_length=100)
     quantity = models.IntegerField(default=1)
+
+
+class Drafts(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True, default=None
+    )
+    service = models.ForeignKey(
+        Service, on_delete=models.CASCADE, null=True, blank=True, default=None
+    )
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, null=True, blank=True, default=None
+    )
+    images = models.JSONField(null=True, blank=True, default=None)
+    layouts = models.JSONField(null=True, blank=True, default=None)
+    cart = models.ForeignKey(
+        "Cart",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        default=None,
+        related_name="cart_drafts",
+    )
+    quantity = models.IntegerField(null=True, blank=True, default=None)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

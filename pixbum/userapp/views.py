@@ -9,7 +9,8 @@ from pixbum.services.custom_all_auth import CustomLoginView
 from pixbum.userapp import models
 from pixbum.userapp.serializers import (
     AddressSerializer,
-    GenrateUserSerializer,
+    ChangePasswordSerializer,
+    GenerateUserSerializer,
     LoginSerializer,
     UserDataSerializer,
     UserSerializer,
@@ -28,7 +29,9 @@ class UserViewSet(viewsets.GenericViewSet):
         elif self.action == "get_me":
             return UserDataSerializer
         elif self.action == "generate_user":
-            return GenrateUserSerializer
+            return GenerateUserSerializer
+        elif self.action == "change_password":
+            return ChangePasswordSerializer
         return super().get_serializer_class()
 
     @action(methods=["post"], detail=False)
@@ -66,6 +69,13 @@ class UserViewSet(viewsets.GenericViewSet):
     def generate_user(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
+
+    @action(methods=["patch"], detail=False)
+    def change_password(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)
 
 

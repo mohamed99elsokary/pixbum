@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -58,7 +60,7 @@ class LoginSerializer(serializers.Serializer):
 class UserDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("username", "phone")
+        fields = ("username", "phone", "password")
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -84,6 +86,26 @@ class UserTokenSerializer(serializers.Serializer):
         }
 
 
-class GenrateUserSerializer(UserTokenSerializer):
+class GenerateUserSerializer(UserTokenSerializer):
     def validate(self, data):
-        return self.get_user_token(User.objects.create())
+        return self.get_user_token(User.objects.create(is_generated=True))
+
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField(write_only=True, allow_null=True)
+
+    class Meta:
+        model = User
+        fields = ("password", "old_password")
+
+    def create(self, validated_data: Any) -> Any:
+        user = self.context["request"].user
+
+        if user.is_generated == False and not user.check_password(
+            validated_data["old_password"]
+        ):
+            raise serializers.ValidationError("old password is wrong")
+        user.set_password(validated_data["password"])
+        user.is_generated = False
+        user.save()
+        return user

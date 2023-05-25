@@ -1,5 +1,6 @@
 from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
@@ -101,6 +102,10 @@ class CustomSocialLoginView(CustomLoginView, SocialLoginView):
 
 class FacebookLogin(CustomSocialLoginView):
     adapter_class = FacebookOAuth2Adapter
+
+
+class GmailLogin(CustomSocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
 
 
 class AppleLogin(CustomSocialLoginView):

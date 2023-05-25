@@ -9,6 +9,7 @@ from pixbum.services.custom_all_auth import CustomLoginView
 from pixbum.userapp import models
 from pixbum.userapp.serializers import (
     AddressSerializer,
+    GenrateUserSerializer,
     LoginSerializer,
     UserDataSerializer,
     UserSerializer,
@@ -26,6 +27,8 @@ class UserViewSet(viewsets.GenericViewSet):
             return UserDataSerializer
         elif self.action == "get_me":
             return UserDataSerializer
+        elif self.action == "generate_user":
+            return GenrateUserSerializer
         return super().get_serializer_class()
 
     @action(methods=["post"], detail=False)
@@ -58,6 +61,12 @@ class UserViewSet(viewsets.GenericViewSet):
     def delete_me(self, request):
         request.user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=["post"], detail=False)
+    def generate_user(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
 
 
 class AddressViewSet(

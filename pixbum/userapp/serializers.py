@@ -67,3 +67,23 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = "__all__"
+
+
+class UserTokenSerializer(serializers.Serializer):
+    access_token = serializers.CharField(read_only=True)
+    refersh_token = serializers.CharField(read_only=True)
+    is_new = serializers.BooleanField(read_only=True)
+
+    def get_user_token(self, user):
+        refersh_token = RefreshToken.for_user(user)
+        access_token = refersh_token.access_token
+        return {
+            "refersh_token": refersh_token,
+            "access_token": access_token,
+            "is_new": user.is_new,
+        }
+
+
+class GenrateUserSerializer(UserTokenSerializer):
+    def validate(self, data):
+        return self.get_user_token(User.objects.create())

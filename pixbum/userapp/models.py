@@ -31,6 +31,7 @@ class User(UserMixin, CustomModel, AbstractUser):
     verification_code = models.CharField(
         max_length=10, default=rand_int_4digits, null=True, blank=True
     )
+    is_new = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
     is_development_api_user = models.BooleanField(
         default=False,

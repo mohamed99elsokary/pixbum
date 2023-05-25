@@ -1,9 +1,6 @@
-from functools import partial
-
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from smart_selects.db_fields import ChainedForeignKey
 
 from pixbum.services.custom_Models import CustomModel
 from pixbum.services.helpers import rand_int_4digits

@@ -1,9 +1,11 @@
+from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from pixbum.services.custom_all_auth import CustomLoginView
 from pixbum.userapp import models
 from pixbum.userapp.serializers import (
     AddressSerializer,
@@ -74,8 +76,16 @@ class AddressViewSet(
         return super().get_queryset()
 
 
-class FacebookLogin(SocialLoginView):
+class CustomSocialLoginView(CustomLoginView, SocialLoginView):
+    ...
+
+
+class FacebookLogin(CustomSocialLoginView):
     adapter_class = FacebookOAuth2Adapter
+
+
+class AppleLogin(CustomSocialLoginView):
+    adapter_class = AppleOAuth2Adapter
 
 
 # TODO forget password cycle

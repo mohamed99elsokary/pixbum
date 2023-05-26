@@ -1,7 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from pixbum.userapp.views import AddressViewSet, FacebookLogin, GmailLogin, UserViewSet
+from pixbum.userapp.views import (
+    AddressViewSet,
+    AppleLogin,
+    FacebookLogin,
+    GmailLogin,
+    UserViewSet,
+)
 
 router = routers.DefaultRouter()
 router.register("users", UserViewSet, basename="users")
@@ -11,4 +17,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("users/facebook/", FacebookLogin.as_view(), name="fb_login"),
     path("users/gmail/", GmailLogin.as_view(), name="gmail_login"),
+    path("users/apple/", AppleLogin.as_view(), name="apple_login"),
 ]

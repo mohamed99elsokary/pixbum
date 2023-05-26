@@ -60,7 +60,7 @@ class LoginSerializer(serializers.Serializer):
 class UserDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("username", "phone", "password")
+        fields = ("username", "phone", "password","email")
 
 
 class AddressSerializer(serializers.ModelSerializer):

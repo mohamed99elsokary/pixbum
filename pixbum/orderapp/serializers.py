@@ -35,12 +35,19 @@ class DefaultUserOrder:
 
 
 class OrderDetailsSerializer(serializers.ModelSerializer):
-    order = serializers.HiddenField(default=DefaultUserOrder())
+    order = serializers.SlugRelatedField(read_only=True, slug_field="id")
 
     class Meta:
         model = models.OrderDetails
-        # fields = "__all__"
         exclude = ("pdf",)
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        user_address = models.Address.objects.filter(user=user).first()
+        validated_data["order"] = models.Order.objects.create(
+            user=user, address=user_address
+        )
+        return super().create(validated_data)
 
 
 class OrderSerializer(serializers.ModelSerializer):

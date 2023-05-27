@@ -5,11 +5,19 @@ from pixbum.productapp.models import Product
 from pixbum.servicesapp.models import Service
 from pixbum.userapp.models import Address, User
 
+from .model_mixins import OrderDetailsMixin, OrderMixin
 
-class Order(models.Model):
+
+class Order(OrderMixin, models.Model):
     # relations
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address = models.ForeignKey(
+        Address,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        default=None,
+    )
     payment = models.OneToOneField(
         Payment,
         on_delete=models.CASCADE,
@@ -19,9 +27,10 @@ class Order(models.Model):
     )
     # fields
     is_checkout = models.BooleanField(default=False)
+    total_price = models.IntegerField(default=0)
 
 
-class OrderDetails(models.Model):
+class OrderDetails(OrderDetailsMixin, models.Model):
     # relations
     order = models.ForeignKey(
         Order,
@@ -35,6 +44,8 @@ class OrderDetails(models.Model):
     # fields
     pdf = models.FileField(upload_to=None, max_length=100)
     quantity = models.IntegerField(default=1)
+    extra = models.IntegerField(default=0)
+    price = models.IntegerField(default=0)
 
 
 class Drafts(models.Model):

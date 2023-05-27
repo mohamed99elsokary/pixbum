@@ -32,6 +32,7 @@ class Product(models.Model):
     )
     price = models.IntegerField(default=1)
     price_after_discount = models.IntegerField(default=1)
+    extra_price = models.IntegerField(default=1)
     name = models.CharField(max_length=50)
     min_photos_amount = models.IntegerField(default=1)
     max_photos_amount = models.IntegerField(default=1)

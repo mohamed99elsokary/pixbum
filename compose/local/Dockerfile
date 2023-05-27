@@ -12,7 +12,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 RUN mkdir /code
 WORKDIR /
-
+COPY ./packages/ ./packages/
 COPY ./requirements/base.txt /requirements/base.txt
 COPY ./requirements/local.txt /requirements/local.txt
 RUN pip install --cache-dir=/root/.pip -r ./requirements/local.txt

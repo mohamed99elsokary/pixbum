@@ -1,4 +1,5 @@
 from django.db import models
+from payment.models import Payment
 
 from pixbum.productapp.models import Product
 from pixbum.servicesapp.models import Service
@@ -9,6 +10,13 @@ class Order(models.Model):
     # relations
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    payment = models.OneToOneField(
+        Payment,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        default=None,
+    )
     # fields
     is_checkout = models.BooleanField(default=False)
 

@@ -14,7 +14,7 @@ class OrderViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = models.Order.objects.all()
+    queryset = models.Order.objects.all().prefetch_related("order_details")
     serializer_class = serializers.OrderSerializer
 
     def get_queryset(self):

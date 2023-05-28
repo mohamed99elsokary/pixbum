@@ -97,4 +97,5 @@ class OrderCheckOutSerializer(serializers.ModelSerializer):
         fields = ("url",)
 
     def get_url(self, obj):
+        return "https://www.google.com/"
         return obj.payment.payment_url

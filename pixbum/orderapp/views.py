@@ -1,11 +1,8 @@
-from typing import Any
-
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
-from rest_framework.request import Request
 from rest_framework.response import Response
 
-from pixbum.services.views import BulkCreateModelMixin
+from pixbum.services.views import GenericCreateModelMixin
 
 from . import models, serializers
 
@@ -33,7 +30,7 @@ class OrderViewSet(
 
 
 class OrderDetailsViewSet(
-    BulkCreateModelMixin,
+    GenericCreateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):

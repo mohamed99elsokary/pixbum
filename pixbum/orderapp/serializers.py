@@ -40,7 +40,7 @@ class OrderDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderDetails
         read_only_fields = ("price",)
-        exclude = ("pdf",)
+        fields = "__all__"
 
 
 class OrderSerializer(serializers.ModelSerializer):

@@ -42,7 +42,9 @@ class OrderDetails(OrderDetailsMixin, models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     # fields
-    pdf = models.FileField(upload_to=None, max_length=100)
+    pdf = models.FileField(
+        upload_to=None, max_length=100, null=True, blank=True, default=None
+    )
     quantity = models.IntegerField(default=1)
     extra = models.IntegerField(default=0)
     price = models.IntegerField(default=0)

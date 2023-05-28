@@ -62,6 +62,8 @@ THIRD_PARTY_APPS = [
     # all auth
     "allauth.socialaccount",
     "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.apple",
     "dj_rest_auth",
     "drf_yasg",
 ]
@@ -257,7 +259,7 @@ SWAGGER_SETTINGS = {
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_PROVIDERS = {}
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 """ Rest Auth settings """
 REST_USE_JWT = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"

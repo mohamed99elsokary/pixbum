@@ -87,3 +87,14 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Cart
         fields = "__all__"
+
+
+class OrderCheckOutSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.Order
+        fields = ("url",)
+
+    def get_url(self, obj):
+        return obj.payment.payment_url

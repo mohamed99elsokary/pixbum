@@ -1,6 +1,10 @@
+from typing import Any
+
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
+from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.serializers import BaseSerializer
 
 from pixbum.services.views import GenericCreateModelMixin
 
@@ -9,7 +13,6 @@ from . import models, serializers
 
 class OrderViewSet(
     mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
@@ -20,13 +23,26 @@ class OrderViewSet(
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
 
+    def get_serializer_class(self):
+        if self.action == "check_out":
+            return serializers.OrderCheckOutSerializer
+        return super().get_serializer_class()
+
     @action(methods=["delete"], detail=True)
     def delete_order_details(self, request, pk):
-        # order = self.get_object(pk)
-        # order.total_price = 0
-        # order.save()
+        order = self.get_object(pk)
+        order.total_price = 0
+        order.save()
         models.OrderDetails.objects.filter(order_id=pk).delete()
         return Response("deleted successfully")
+
+    @action(methods=["patch"], detail=True)
+    def check_out(self, request, pk):
+        order = self.get_object()
+        order.is_checkout = True
+        order.save()
+        serializer = self.get_serializer(order)
+        return Response(serializer.data)
 
 
 class OrderDetailsViewSet(

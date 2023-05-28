@@ -1,5 +1,8 @@
+from typing import Any
+
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
+from rest_framework.request import Request
 from rest_framework.response import Response
 
 from pixbum.services.views import BulkCreateModelMixin
@@ -19,6 +22,14 @@ class OrderViewSet(
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
+
+    @action(methods=["delete"], detail=True)
+    def delete_order_details(self, request, pk):
+        # order = self.get_object(pk)
+        # order.total_price = 0
+        # order.save()
+        models.OrderDetails.objects.filter(order_id=pk).delete()
+        return Response("deleted successfully")
 
 
 class OrderDetailsViewSet(

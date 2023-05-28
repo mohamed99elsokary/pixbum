@@ -18,11 +18,16 @@ class DefaultUserAddress:
         return "%s()" % self.__class__.__name__
 
 
-class DefaultUserOrder:
-    requires_context = True
+class OrderDetailsSerializer(serializers.ModelSerializer):
+    order = serializers.SlugRelatedField(read_only=True, slug_field="id")
 
-    def __call__(self, serializer_field):
-        user = serializer_field.context["request"].user
+    class Meta:
+        model = models.OrderDetails
+        read_only_fields = ("price",)
+        fields = "__all__"
+
+    def get_or_create_order(self):
+        user = self.context["request"].user
         order = models.Order.objects.filter(user=user, is_checkout=False)
         if order:
             return order.first()
@@ -30,17 +35,9 @@ class DefaultUserOrder:
             user=user, address=models.Address.objects.filter(user=user).first()
         )
 
-    def __repr__(self):
-        return "%s()" % self.__class__.__name__
-
-
-class OrderDetailsSerializer(serializers.ModelSerializer):
-    order = serializers.HiddenField(default=DefaultUserOrder())
-
-    class Meta:
-        model = models.OrderDetails
-        read_only_fields = ("price",)
-        fields = "__all__"
+    def create(self, validated_data):
+        validated_data["order"] = self.get_or_create_order()
+        return super().create(validated_data)
 
 
 class OrderSerializer(serializers.ModelSerializer):

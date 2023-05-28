@@ -16,5 +16,6 @@ class UserMixin(LifecycleModelMixin):
         from pixbum.orderapp.models import Cart
 
         Cart.objects.create(user=self)
-        self.email = f"{self.id}@gmail.com"
-        self.save()
+        if not self.email:
+            self.email = f"{self.id}@gmail.com"
+            self.save()

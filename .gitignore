@@ -118,3 +118,4 @@ media/
 *.png
 mysql_db/
 .env
+.docker.env

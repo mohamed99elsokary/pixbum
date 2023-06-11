@@ -5,6 +5,7 @@ from pixbum.productapp.models import Product
 from pixbum.servicesapp.models import Service
 from pixbum.userapp.models import Address, User
 
+from .conf import order_choices
 from .model_mixins import OrderDetailsMixin, OrderMixin
 
 
@@ -28,6 +29,7 @@ class Order(OrderMixin, models.Model):
     # fields
     is_checkout = models.BooleanField(default=False)
     total_price = models.IntegerField(default=0)
+    status = models.CharField(max_length=50, choices=order_choices, default="pending")
 
 
 class OrderDetails(OrderDetailsMixin, models.Model):

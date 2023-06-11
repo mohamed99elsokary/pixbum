@@ -16,6 +16,8 @@ from pathlib import Path
 
 from decouple import config
 
+from pixbum.addonsapp.utils import after_payment_success
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -116,29 +118,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "pixbum.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# sqlite3 database
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-# mysql settings
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": config("DATABASE_NAME", cast=str),
-#         "USER": config("DATABASE_USER", cast=str),
-#         "PASSWORD": config("DATABASE_PASSWORD", cast=str),
-#         "HOST": config("DATABASE_URL", cast=str),
-#         "PORT": config("DATABASE_PORT", cast=str),
-#     }
-# }
 # postgresql
 DATABASES = {
     "default": {
@@ -265,3 +244,6 @@ REST_USE_JWT = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+AFTER_PAYMENT_SUCCESS = after_payment_success

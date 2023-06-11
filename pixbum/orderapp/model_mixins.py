@@ -29,5 +29,9 @@ class OrderDetailsMixin(LifecycleModelMixin):
 class OrderMixin(LifecycleModelMixin):
     @hook(AFTER_UPDATE, when="is_checkout", is_now=True)
     def payment_create(self):
-        self.payment = Payment.objects.create(payment_type="ACCEPT_CREDIT_CARD")
+        self.payment = Payment.objects.create(
+            payment_type="ACCEPT_CREDIT_CARD",
+            total=self.total_price,
+            currency="EGP",
+        )
         self.save()

@@ -13,7 +13,7 @@ class OrderDetailsMixin(LifecycleModelMixin):
     @hook(BEFORE_CREATE)
     def before_create(self):
         extra_cost = self.extra * self.product.extra_price
-        self.price = (self.product.price * self.quantity) + extra_cost
+        self.price = (self.product.price_after_discount * self.quantity) + extra_cost
 
     @hook(AFTER_CREATE)
     def after_create(self):

@@ -33,5 +33,9 @@ class OrderMixin(LifecycleModelMixin):
             payment_type="ACCEPT_CREDIT_CARD",
             total=self.total_price,
             currency="EGP",
+            title="NA",
+            first_name="NA",
+            last_name="NA",
+            email="NA@NA.com",
         )
         self.save()

@@ -30,6 +30,7 @@ class Order(OrderMixin, models.Model):
     is_checkout = models.BooleanField(default=False)
     total_price = models.IntegerField(default=0)
     status = models.CharField(max_length=50, choices=order_choices, default="pending")
+    created_date = models.DateField(auto_now=True, auto_now_add=False)
 
 
 class OrderDetails(OrderDetailsMixin, models.Model):

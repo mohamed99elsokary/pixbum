@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from pixbum.productapp.serializers import ProductSerializer
+from pixbum.productapp.serializers import ProductSerializer, TinyProductSerializer
 from pixbum.servicesapp.serializers import ServiceSerializer
 from pixbum.userapp.serializers import AddressSerializer
 
@@ -40,8 +40,12 @@ class OrderDetailsSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
+class TinyOrderDetailsSerializer(OrderDetailsSerializer):
+    product = TinyProductSerializer()
+
+
 class OrderSerializer(serializers.ModelSerializer):
-    order_details = OrderDetailsSerializer(many=True)
+    order_details = TinyOrderDetailsSerializer(many=True)
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     address = AddressSerializer()
 

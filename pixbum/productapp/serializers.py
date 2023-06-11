@@ -9,6 +9,12 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class TinyProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Product
+        fields = ("id", "name")
+
+
 class ProductImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ProductImages

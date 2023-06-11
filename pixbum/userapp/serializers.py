@@ -109,3 +109,16 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         user.is_generated = False
         user.save()
         return user
+
+
+class RefreshTokenSerializer(serializers.Serializer):
+    refresh_token = serializers.CharField(write_only=True)
+
+    def create(self, attrs):
+        refresh = RefreshToken(attrs["refresh_token"])
+        data = {"access": str(refresh.access_token)}
+        refresh.set_jti()
+        refresh.set_exp()
+        refresh.set_iat()
+        data["refresh"] = str(refresh)
+        return data

@@ -7,18 +7,20 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from pixbum.services.custom_all_auth import CustomLoginView
+from pixbum.services.views import ModelViewSetClones
 from pixbum.userapp import models
 from pixbum.userapp.serializers import (
     AddressSerializer,
     ChangePasswordSerializer,
     GenerateUserSerializer,
     LoginSerializer,
+    RefreshTokenSerializer,
     UserDataSerializer,
     UserSerializer,
 )
 
 
-class UserViewSet(viewsets.GenericViewSet):
+class UserViewSet(ModelViewSetClones, viewsets.GenericViewSet):
     queryset = models.User.objects.all()
     serializer_class = UserSerializer
 
@@ -33,6 +35,8 @@ class UserViewSet(viewsets.GenericViewSet):
             return GenerateUserSerializer
         elif self.action == "change_password":
             return ChangePasswordSerializer
+        elif self.action == "refresh_token":
+            return RefreshTokenSerializer
         return super().get_serializer_class()
 
     @action(methods=["post"], detail=False)
@@ -78,6 +82,10 @@ class UserViewSet(viewsets.GenericViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+    @action(methods=["post"], detail=False)
+    def refresh_token(self, request, *args, **kwargs):
+        return super().create_clone(request, data=False, *args, **kwargs)
 
 
 class AddressViewSet(

@@ -38,4 +38,4 @@ class OrderMixin(LifecycleModelMixin):
             last_name="NA",
             email="NA@NA.com",
         )
-        self.save()
+        self.save(skip_hooks=True)

@@ -14,6 +14,7 @@ from datetime import timedelta
 from os.path import join, normpath
 from pathlib import Path
 
+from bit68_notifications.conf import EXPO_NOTIFICATION
 from decouple import config
 
 from pixbum.addonsapp.utils import after_payment_success
@@ -67,6 +68,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.apple",
     "dj_rest_auth",
+    "bit68_notifications",
     "drf_yasg",
 ]
 # local apps
@@ -77,6 +79,7 @@ LOCAL_APPS = [
     "pixbum.servicesapp",
     "pixbum.userapp",
     "pixbum.addonsapp",
+    "pixbum.notificationapp",
     "pixbum.services",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -247,3 +250,4 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 AFTER_PAYMENT_SUCCESS = after_payment_success
+PUSH_NOTIFICATION_DEVICE_TYPES = [EXPO_NOTIFICATION]

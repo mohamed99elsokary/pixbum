@@ -40,7 +40,7 @@ class OrderViewSet(
     def check_out(self, request, pk):
         order = self.get_object()
         order.is_checkout = True
-        # order.save()
+        order.save()
         serializer = self.get_serializer(order)
         return Response(serializer.data)
 

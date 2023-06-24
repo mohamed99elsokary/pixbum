@@ -23,6 +23,7 @@ main_patterns = i18n_patterns(
     path("api/", include("pixbum.servicesapp.urls")),
     path("api/", include("pixbum.userapp.urls")),
     path("api/", include("pixbum.addonsapp.urls")),
+    path("payment/", include("payment.urls")),
 )
 urlpatterns = main_patterns
 

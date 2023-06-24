@@ -1,7 +1,15 @@
 from django.contrib import admin
+from payment.admin import models as payment_models
 from unfold.admin import ModelAdmin, StackedInline
 
 from . import models
+
+admin.site.unregister(payment_models.Payment)
+
+
+@admin.register(payment_models.Payment)
+class PaymentAdmin(ModelAdmin):
+    """Admin View for Order"""
 
 
 class OrderDetailsAdminInline(StackedInline):

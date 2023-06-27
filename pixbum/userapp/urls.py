@@ -4,6 +4,7 @@ from rest_framework import routers
 from pixbum.userapp.views import (
     AddressViewSet,
     AppleLogin,
+    ExpoDeviceViewSet,
     FacebookLogin,
     GmailLogin,
     UserViewSet,
@@ -12,6 +13,7 @@ from pixbum.userapp.views import (
 router = routers.DefaultRouter()
 router.register("users", UserViewSet, basename="users")
 router.register("address", AddressViewSet)
+router.register("expo", ExpoDeviceViewSet, basename="expo")
 
 urlpatterns = [
     path("", include(router.urls)),

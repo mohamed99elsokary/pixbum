@@ -1,6 +1,7 @@
 from allauth.socialaccount.providers.apple.views import AppleOAuth2Adapter
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from bit68_notifications.models import ExpoDevice
 from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
@@ -12,12 +13,21 @@ from pixbum.userapp import models
 from pixbum.userapp.serializers import (
     AddressSerializer,
     ChangePasswordSerializer,
+    ExpoDeviceSerializer,
     GenerateUserSerializer,
     LoginSerializer,
     RefreshTokenSerializer,
     UserDataSerializer,
     UserSerializer,
 )
+
+
+class ExpoDeviceViewSet(
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet,
+):
+    queryset = ExpoDevice.objects.all()
+    serializer_class = ExpoDeviceSerializer
 
 
 class UserViewSet(ModelViewSetClones, viewsets.GenericViewSet):
